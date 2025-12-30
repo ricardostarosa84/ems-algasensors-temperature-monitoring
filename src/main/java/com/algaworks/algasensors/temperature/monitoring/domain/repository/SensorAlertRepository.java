@@ -1,0 +1,8 @@
+package com.algaworks.algasensors.temperature.monitoring.domain.repository;
+
+import com.algaworks.algasensors.temperature.monitoring.domain.model.SensorAlert;
+import com.algaworks.algasensors.temperature.monitoring.domain.model.SensorID;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SensorAlertRepository extends JpaRepository<SensorAlert, SensorID> {
+}

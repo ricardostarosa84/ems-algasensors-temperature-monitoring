@@ -1,4 +1,4 @@
-package com.algaworks.algasensors.temperature_monitoring;
+package com.algaworks.algasensors.temperature.monitoring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

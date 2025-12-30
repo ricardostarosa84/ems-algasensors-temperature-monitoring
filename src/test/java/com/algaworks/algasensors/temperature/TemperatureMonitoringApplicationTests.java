@@ -1,4 +1,4 @@
-package com.algaworks.algasensors.temperature_monitoring;
+package com.algaworks.algasensors.temperature;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
