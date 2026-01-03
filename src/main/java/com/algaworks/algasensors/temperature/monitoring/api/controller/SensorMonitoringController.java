@@ -1,6 +1,5 @@
 package com.algaworks.algasensors.temperature.monitoring.api.controller;
 
-
 import com.algaworks.algasensors.temperature.monitoring.api.model.SensorMonitoringOutput;
 import com.algaworks.algasensors.temperature.monitoring.domain.model.SensorID;
 import com.algaworks.algasensors.temperature.monitoring.domain.model.SensorMonitoring;
@@ -8,11 +7,12 @@ import com.algaworks.algasensors.temperature.monitoring.domain.repository.Sensor
 import io.hypersistence.tsid.TSID;
 import jakarta.annotation.Nonnull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.Duration;
 
 @RestController
 @RequestMapping("/api/sensors/{sensorId}/monitoring")
@@ -32,15 +32,24 @@ public class SensorMonitoringController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void enable(@PathVariable @Nonnull TSID sensorId){
         SensorMonitoring sensor = findByIdOrDefault(sensorId);
+        if(Boolean.TRUE.equals(sensor.getEnabled())) {
+            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
+        }
         sensor.setEnabled(true);
+
         sensorMonitoringRepository.saveAndFlush(sensor);
+
     }
 
     @DeleteMapping("/enable")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void disable(@PathVariable @Nonnull TSID sensorId){
+    @SneakyThrows
+    public void disable(@PathVariable @Nonnull TSID sensorId) {
         SensorMonitoring sensor = findByIdOrDefault(sensorId);
-        sensor.setEnabled(true);
+        if(Boolean.FALSE.equals(sensor.getEnabled())) {
+            Thread.sleep(Duration.ofSeconds(10));
+        }
+        sensor.setEnabled(false);
         sensorMonitoringRepository.saveAndFlush(sensor);
     }
 

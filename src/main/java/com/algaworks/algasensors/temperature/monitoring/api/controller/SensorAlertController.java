@@ -1,6 +1,5 @@
 package com.algaworks.algasensors.temperature.monitoring.api.controller;
 
-
 import com.algaworks.algasensors.temperature.monitoring.api.model.SensorAlertInput;
 import com.algaworks.algasensors.temperature.monitoring.api.model.SensorAlertOutput;
 import com.algaworks.algasensors.temperature.monitoring.domain.model.SensorAlert;
